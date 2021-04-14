@@ -17,4 +17,76 @@
  
  ## Code Example
  */
+import os
+let logger = Logger(subsystem: "com.dserweb.mediator", category: "mediator")
 
+// MARK: - Colleague Protocol
+public protocol Colleague: class {
+  func colleague(_ colleague: Colleague?, didReceive message: String)
+}
+
+// MARK: - Mediator Protocol
+public protocol MediatorProtocol: class {
+  func addColleague(_ colleague: Colleague)
+  func sendMessage(_ message: String, by: Colleague)
+}
+
+// MARK: - Colleague
+public class Musketeer {
+  public var name: String
+  public weak var mediator: MediatorProtocol?
+  
+  public init(name: String, mediator: MediatorProtocol) {
+    self.name = name
+    self.mediator = mediator
+    mediator.addColleague(self)
+  }
+  
+  public func sendMessage(_ message: String) {
+    //logger.info("\(self.name) sent: \(message)")
+    print("\(self.name) sent: \(message)")
+    mediator?.sendMessage(message, by: self)
+  }
+}
+
+extension Musketeer: Colleague {
+  public func colleague(_ colleague: Colleague?, didReceive message: String) {
+    //logger.info("\(self.name) received: \(message)")
+    print("\(self.name) received: \(message)")
+  }
+}
+
+// MARK: - Mediator
+public class MusketeerMediator: Mediator<Colleague> {
+  
+}
+
+extension MusketeerMediator: MediatorProtocol {
+  public func addColleague(_ colleague: Colleague) {
+    addColleague(colleague, strongReference: true)
+  }
+  
+  public func sendMessage(_ message: String, by colleague: Colleague) {
+    invokeColleagues(by: colleague, closure: {
+      $0.colleague(colleague, didReceive: message)
+    })
+  }
+  
+}
+
+// MARK: - Example
+let mediator = MusketeerMediator()
+let athos   = Musketeer(name: "Athos", mediator: mediator)
+let porthos = Musketeer(name: "Porthos", mediator: mediator)
+let aramis  = Musketeer(name: "Aramis", mediator: mediator)
+
+athos.sendMessage("One for all...")
+print("")
+porthos.sendMessage("and all for one...")
+print("")
+aramis.sendMessage("Unus pro omnibus, omnes pro uno!")
+print("")
+
+mediator.invokeColleagues(closure: ) {
+  $0.colleague(nil, didReceive: "Charge!")
+}

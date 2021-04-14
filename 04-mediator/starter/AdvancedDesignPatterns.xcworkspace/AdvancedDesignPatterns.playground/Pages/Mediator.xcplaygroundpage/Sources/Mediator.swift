@@ -30,22 +30,22 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-open class Mediator<ColleagueType> {
+open class Mediator<T> {
   
   private class ColleagueWrapper {
     var strongColleague: AnyObject?
     weak var weakColleague: AnyObject?
     
-    var colleague: ColleagueType? {
-      return (weakColleague ?? strongColleague) as? ColleagueType
+    var colleague: T? {
+      return (weakColleague ?? strongColleague) as? T
     }
     
-    init(weakColleague: ColleagueType) {
+    init(weakColleague: T) {
       self.strongColleague = nil
       self.weakColleague = weakColleague as AnyObject
     }
     
-    init(strongColleague: ColleagueType) {
+    init(strongColleague: T) {
       self.strongColleague = strongColleague  as AnyObject
       self.weakColleague = nil
     }
@@ -54,44 +54,37 @@ open class Mediator<ColleagueType> {
   // MARK: - Instance Properties
   private var colleagueWrappers: [ColleagueWrapper] = []
   
-  public var colleagues: [ColleagueType] {
-    var colleagues: [ColleagueType] = []
-    colleagueWrappers = colleagueWrappers.filter {
-      guard let colleague = $0.colleague else { return false }
-      colleagues.append(colleague)
-      return true
-    }
-    return colleagues
+  public var colleagues: [T] {
+    colleagueWrappers.compactMap({$0.colleague})
   }
   
   // MARK: - Object Lifecycle
   public init() { }
   
   // MARK: - Colleague Management
-  public func addColleague(_ colleague: ColleagueType,
+  public func addColleague(_ colleague: T,
                            strongReference: Bool = true) {
-    let wrapper: ColleagueWrapper
-    if strongReference {
-      wrapper = ColleagueWrapper(strongColleague: colleague)
-    } else {
-      wrapper = ColleagueWrapper(weakColleague: colleague)
-    }
+    let wrapper: ColleagueWrapper =
+    strongReference ?
+      ColleagueWrapper(strongColleague: colleague)
+    :
+      ColleagueWrapper(weakColleague: colleague)
     colleagueWrappers.append(wrapper)
   }
   
-  public func removeColleague(_ colleague: ColleagueType) {
+  public func removeColleague(_ colleague: T) {
     guard let index = colleagues.firstIndex(where: {
       ($0 as AnyObject) === (colleague as AnyObject)
     }) else { return }
     colleagueWrappers.remove(at: index)
   }
   
-  public func invokeColleagues(closure: (ColleagueType) -> Void) {
+  public func invokeColleagues(closure: (T) -> Void) {
     colleagues.forEach(closure)
   }
   
-  public func invokeColleagues(by colleague: ColleagueType,
-                               closure: (ColleagueType) -> Void) {
+  public func invokeColleagues(by colleague: T,
+                               closure: (T) -> Void) {
     colleagues.forEach {
       guard ($0 as AnyObject) !== (colleague as AnyObject)
         else { return }
