@@ -32,17 +32,16 @@
 
 import YelpAPI
 
-public protocol SearchColleagueMediating {
+public protocol SearchColleagueMediating: class {
   func searchColleague(
     _ searchColleague: SearchColleague,
-    didSelect business: YLPBusiness
-  )
+    didSelect business: YLPBusiness)
   
   func searchColleague(
-    searchColleague: SearchColleague,
+    _ searchColleague: SearchColleague,
     didCreate viewModels: Set<BusinessMapViewModel>)
   
-  func serachColleague(
+  func searchColleague(
     _ serachColleague: SearchColleague,
     searchFailed error: Error?)
 }
