@@ -41,7 +41,7 @@ public class ToDoCell: UICollectionViewCell {
 
   // MARK: - Properties
   weak var delegate: ToDoCellDelegate?
-  var subtasks: [ToDoItem]?
+  var subtasks: [ToDo]?
 
   public override func layoutSubviews() {
     checkBoxView.layer.borderWidth = 1
