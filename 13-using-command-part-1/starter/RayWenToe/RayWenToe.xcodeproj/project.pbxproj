@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09BF87E6262CF81E001CEDD8 /* MoveCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BF87E5262CF81E001CEDD8 /* MoveCommand.swift */; };
 		421087F4205EDFAC00206D65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421087F3205EDFAC00206D65 /* AppDelegate.swift */; };
 		421087F6205EDFAC00206D65 /* GameplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421087F5205EDFAC00206D65 /* GameplayViewController.swift */; };
 		421087F9205EDFAC00206D65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 421087F7205EDFAC00206D65 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09BF87E5262CF81E001CEDD8 /* MoveCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveCommand.swift; sourceTree = "<group>"; };
 		421087F0205EDFAB00206D65 /* RayWenToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RayWenToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		421087F3205EDFAC00206D65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		421087F5205EDFAC00206D65 /* GameplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				427D60FE20605F7400C31416 /* GameManager.swift */,
 				4234CD3C2061C88F00C24B80 /* Referee.swift */,
 				428B820D206301FD00E26C30 /* States */,
+				09BF87E5262CF81E001CEDD8 /* MoveCommand.swift */,
 			);
 			path = GameManager;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				42BBABBF2060B7320004A9B3 /* Gameboard.swift in Sources */,
 				42C1D36B20605C9600A58707 /* Copying.swift in Sources */,
 				4223CC6A20603EA80061DD1E /* XView.swift in Sources */,
+				09BF87E6262CF81E001CEDD8 /* MoveCommand.swift in Sources */,
 				421087F4205EDFAC00206D65 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -491,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -505,8 +509,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 42E64L44C7;
 				INFOPLIST_FILE = "$(SRCROOT)/RayWenToe/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RayWenToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -522,8 +527,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 42E64L44C7;
 				INFOPLIST_FILE = "$(SRCROOT)/RayWenToe/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RayWenToe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
