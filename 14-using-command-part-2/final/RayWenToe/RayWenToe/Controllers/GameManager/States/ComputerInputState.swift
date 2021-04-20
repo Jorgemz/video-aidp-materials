@@ -46,11 +46,13 @@ public class ComputerInputState: GameState {
 
   // MARK: - Computed Properties
   public var referee: Referee {
+    logger.info("referee")
     return gameManager.referee
   }
 
   // MARK: - Actions
   public override func begin() {
+    logger.info("begin")
     var positions = generateRandomWinningCombination()
     while positions.count < gameManager.turnsPerPlayer {
       positions.append(generateRandomPosition())
@@ -67,11 +69,13 @@ public class ComputerInputState: GameState {
   }
 
   private func generateRandomWinningCombination() -> [GameboardPosition] {
+    logger.info("generateRandomWinningCombination")
     let index = random.nextInt(upperBound: referee.winningCombinations.count)
     return referee.winningCombinations[index]
   }
 
   private func generateRandomPosition() -> GameboardPosition {
+    logger.info("generateRandomPosition")
     let column = random.nextInt(upperBound: gameboard.size.columns)
     let row = random.nextInt(upperBound: gameboard.size.rows)
     return GameboardPosition(column: column, row: row)

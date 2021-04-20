@@ -29,20 +29,25 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
+import os
 
 public class GameState {
+  let logger = Logger(subsystem: "com.dserweb.gamestate", category: "gamestate")
 
   // MARK: - Instance Properties
   public unowned let gameManager: GameManager
 
   // MARK: - Compute Properties
   public var gameboard: Gameboard {
+    logger.info("gameboard")
     return gameManager.gameboard
   }
   public var gameboardView: GameboardView {
+    logger.info("gameboardView")
     return gameManager.gameplayView.gameboardView
   }
   public var gameplayView: GameplayView {
+    logger.info("gameplayView")
     return gameManager.gameplayView
   }
   public var movesForPlayer: [Player: [MoveCommand]] {
@@ -51,6 +56,7 @@ public class GameState {
   }
 
   internal var turnsPerPlayer: Int {
+    logger.info("turnsPerPlayer")
     return gameManager.turnsPerPlayer
   }
 

@@ -31,6 +31,7 @@
 /// THE SOFTWARE.
 
 import UIKit
+import os
 
 public protocol SettingsViewControllerDelegate {
 
@@ -39,13 +40,14 @@ public protocol SettingsViewControllerDelegate {
 }
 
 public class SettingsViewController: UIViewController {
+  static let logger = Logger(subsystem: "SettingsViewController", category: "SettingsViewControllerDelegate")
 
   // MARK: - Instance Properties
   public var delegate: SettingsViewControllerDelegate?
 
   // MARK: - Static Methods
-  public class func instanceFromStoryboard(
-    withDelegate delegate: SettingsViewControllerDelegate) -> SettingsViewController {
+  public class func instanceFromStoryboard(withDelegate delegate: SettingsViewControllerDelegate) -> SettingsViewController {
+    logger.info("instanceFromStoryboard")
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
     let viewController = storyboard.instantiateViewController(
       withIdentifier: "SettingsViewController") as! SettingsViewController
@@ -56,11 +58,13 @@ public class SettingsViewController: UIViewController {
 
   // MARK: - Actions
   @IBAction func onePlayerModePressed(_ sender: Any) {
+    Self.logger.info("onePlayerModePressed")
     let onePlayerMode = GameManager.onePlayerMode()
     delegate?.selectGameModeViewController(self, didSelectManager: onePlayerMode)
   }
 
   @IBAction func twoPlayerModePressed(_ sender: Any) {
+    Self.logger.info("twoPlayerModePressed")
     let twoPlayerMode = GameManager.twoPlayerMode()
     delegate?.selectGameModeViewController(self, didSelectManager: twoPlayerMode)
   }

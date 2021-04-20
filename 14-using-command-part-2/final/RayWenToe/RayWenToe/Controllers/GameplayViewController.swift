@@ -31,8 +31,10 @@
 /// THE SOFTWARE.
 
 import UIKit
+import os
 
 public class GameplayViewController: UIViewController {
+  let logger = Logger(subsystem: "GameplayViewController", category: "GameplayViewController")
 
   // MARK: - Outlets
   public var gameplayView: GameplayView {
@@ -44,6 +46,7 @@ public class GameplayViewController: UIViewController {
 
   // MARK: - View Lifecycle
   public override func viewDidAppear(_ animated: Bool) {
+    logger.info("viewDidAppear")
     super.viewDidAppear(animated)
 
     guard isFirstTimeViewDidAppear else { return }
@@ -54,18 +57,22 @@ public class GameplayViewController: UIViewController {
 
   // MARK: - Actions
   @IBAction func playReadyPressed(_ sender: Any) {
+    logger.info("playReadyPressed")
     gameManager.handleActionPressed()
   }
 
   @IBAction func undoPressed(_ sender: Any) {
+    logger.info("undoPressed")
     gameManager.handleUndoPressed()
   }
 
   @IBAction func settingsPressed(_ sender: Any) {
+    logger.info("settingsPressed")
     presentSettingsViewController(animated: true)
   }
 
   private func presentSettingsViewController(animated: Bool) {
+    logger.info("presentSettingsViewController")
     let viewController = SettingsViewController.instanceFromStoryboard(withDelegate: self)
     viewController.modalPresentationStyle = .fullScreen
     present(viewController, animated: animated)
@@ -77,6 +84,7 @@ extension GameplayViewController: GameboardViewDelegate {
 
   public func gameboardView(_ gameboardView: GameboardView,
                             didSelectPosition position: GameboardPosition) {
+    logger.info("gameboardView")
     gameManager.addMove(at: position)
   }
 }
@@ -86,6 +94,7 @@ extension GameplayViewController: SettingsViewControllerDelegate {
 
   public func selectGameModeViewController(_ viewController: SettingsViewController,
                                            didSelectManager manager: GameManager) {
+    logger.info("selectGameModeViewController")
     gameManager = manager
     gameManager.gameplayView = gameplayView
     gameManager.newGame()

@@ -45,6 +45,7 @@ public class PlayerInputState: GameState {
 
   // MARK: - Actions
   public override func begin() {
+    logger.info("PlayerInputState begin")
     gameplayView.actionButton.setTitle(actionTitle, for: .normal)
     gameplayView.gameboardView.clear()
     updatePlayerLabel()
@@ -52,6 +53,7 @@ public class PlayerInputState: GameState {
   }
 
   public override func addMove(at position: GameboardPosition) {
+    logger.info("PlayerInputState addMove")
     let moveCount = movesForPlayer[player]!.count
     guard moveCount < turnsPerPlayer else { return }
     displayMarkView(at: position, turnNumber: moveCount + 1)
@@ -60,6 +62,7 @@ public class PlayerInputState: GameState {
   }
 
   private func enqueueMoveCommand(at position: GameboardPosition) {
+    logger.info("PlayerInputState enqueueMoveCommand")
     let newMove = MoveCommand(gameboard: gameboard,
                               gameboardView: gameboardView,
                               player: player,
@@ -68,6 +71,7 @@ public class PlayerInputState: GameState {
   }
 
   private func displayMarkView(at position: GameboardPosition, turnNumber: Int) {
+    logger.info("PlayerInputState displayMarkView")
     guard let markView = gameplayView.gameboardView.markViewForPosition[position] else {
       let markView = player.markViewPrototype.copy() as MarkView
       markView.turnNumbers = [turnNumber]
@@ -78,20 +82,24 @@ public class PlayerInputState: GameState {
   }
 
   private func updatePlayerLabel() {
+    logger.info("PlayerInputState updatePlayerLabel")
     gameplayView.playerLabel.text = player.turnMessage
   }
 
   private func updateMoveCountLabel() {
+    logger.info("PlayerInputState updateMoveCountLabel")
     let turnsRemaining = turnsPerPlayer - movesForPlayer[player]!.count
     gameplayView.moveCountLabel.text = "\(turnsRemaining) Moves Left"
   }
 
   public override func handleActionPressed() {
+    logger.info("PlayerInputState handleActionPressed")
     guard movesForPlayer[player]!.count == turnsPerPlayer else { return }
     gameManager.transitionToNextState()
   }
 
   public override func handleUndoPressed() {
+    logger.info("PlayerInputState handleUndoPressed")
     var moves = movesForPlayer[player]!
     guard let position = moves.popLast()?.position else { return }
     

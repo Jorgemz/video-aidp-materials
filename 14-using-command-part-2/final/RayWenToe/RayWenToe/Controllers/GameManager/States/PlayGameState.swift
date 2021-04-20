@@ -29,6 +29,7 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
+import os
 
 public class PlayGameState: GameState {
 
@@ -45,6 +46,7 @@ public class PlayGameState: GameState {
 
   // MARK: - Actions
   public override func begin() {
+    logger.info("begin")
     gameplayView.isUserInteractionEnabled = false
     gameplayView.playerLabel.text = nil
     gameplayView.moveCountLabel.text = nil
@@ -55,6 +57,7 @@ public class PlayGameState: GameState {
   }
   
   private func combinePlayerMoves() -> [MoveCommand] {
+    logger.info("combinePlayerMoves")
     var result: [MoveCommand] = []
     let player1Moves = movesForPlayer[player1]!
     let player2Moves = movesForPlayer[player2]!
@@ -67,6 +70,7 @@ public class PlayGameState: GameState {
   }
   
   private func performMove(at index: Int, with moves: [MoveCommand]) {
+    logger.info("performMove")
     guard index < moves.count else {
       displayWinner()
       return
@@ -78,6 +82,7 @@ public class PlayGameState: GameState {
   }
 
   private func displayWinner() {
+    logger.info("displayWinner")
     gameplayView.actionButton.setTitle("New Game", for: .normal)
     let winner = gameManager.referee.determineWinner()
     gameplayView.playerLabel.text = winner.winMessage
@@ -85,6 +90,7 @@ public class PlayGameState: GameState {
   }
 
   public override func handleActionPressed() {
+    logger.info("handleActionPressed")
     gameManager.newGame()
   }
 }

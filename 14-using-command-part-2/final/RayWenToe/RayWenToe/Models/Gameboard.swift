@@ -31,13 +31,16 @@
 /// THE SOFTWARE.
 
 import Foundation
+import os
 
 public final class Gameboard: NSObject {
+  let logger = Logger(subsystem: "com.dserweb.gameboard", category: "gameboard")
 
   // MARK: - Instance Properties
   public private(set) lazy var positions: [[Player?]] = generateBoardPositions()
 
   private func generateBoardPositions() -> [[Player?]] {
+    logger.info("generateBoardPositions")
     var positions: [[Player?]] = []
     for _ in 0 ..< size.columns {
       let rows = Array<Player?>(repeating: nil, count: size.rows)
@@ -55,14 +58,17 @@ public final class Gameboard: NSObject {
 
   // MARK: - Instance Methods
   public func clear() {
+    logger.info("clear")
     self.positions = generateBoardPositions()
   }
 
   public func setPlayer(_ player: Player, at position: GameboardPosition) {
+    logger.info("setPlayer")
     positions[position.column][position.row] = player
   }
 
   public func contains(player: Player, at positions: [GameboardPosition]) -> Bool {
+    logger.info("contains at positions")
     for position in positions {
       guard contains(player: player, at: position) else {
         return false
@@ -72,7 +78,7 @@ public final class Gameboard: NSObject {
   }
 
   public func contains(player: Player, at position: GameboardPosition) -> Bool {
-    let (column, row) = (position.column, position.row)
-    return positions[column][row] === player
+    logger.info("contains at position")
+    return positions[position.column][position.row] === player
   }
 }

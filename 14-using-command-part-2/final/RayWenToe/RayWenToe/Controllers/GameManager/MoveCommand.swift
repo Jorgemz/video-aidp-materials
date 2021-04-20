@@ -27,14 +27,17 @@
 /// THE SOFTWARE.
 
 import Foundation
+import os
 
 public struct MoveCommand {
+  let logger = Logger(subsystem: "com.dserweb.movecommand", category: "movecommand")
   public var gameboard: Gameboard
   public var gameboardView: GameboardView
   public var player: Player
   public var position: GameboardPosition
   
   public func execute(completion: (() -> Void)? = nil) {
+    logger.info("execute")
     gameboard.setPlayer(player, at: position)
     gameboardView.placeMarkView(player.markViewPrototype.copy(),
                                 at: position,

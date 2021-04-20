@@ -31,8 +31,10 @@
 /// THE SOFTWARE.
 
 import Foundation
+import os
 
 public class GameManager {
+  static let logger = Logger(subsystem: "GameManager", category: "GameManager")
 
   // MARK: - Instance Properties
   public weak var gameplayView: GameplayView! {
@@ -44,6 +46,7 @@ public class GameManager {
   internal lazy var movesForPlayer = [player1: [MoveCommand](), player2: [MoveCommand]()]
 
   private var currentState: GameState {
+    Self.logger.info("currentState")
     return states[currentStateIndex]
   }
   private var currentStateIndex = 0
@@ -52,11 +55,13 @@ public class GameManager {
   internal private(set) lazy var referee = Referee(gameboard: gameboard, player1: player1, player2: player2)
 
   internal var turnsPerPlayer: Int {
+    Self.logger.info("turnsPerPlayer")
     return Int(ceil(0.5 * Double(gameboard.size.columns * gameboard.size.rows)))
   }
 
   // MARK: - Object Lifecycle
   public class func onePlayerMode() -> GameManager {
+    logger.info("onePlayerMode")
     let player1 = Player(markView: XView(), turnMessage: "Your Turn", winMessage: "You Win!")
     let player2 = Player(markView: OView(), turnMessage: "Computer's Turn", winMessage: "You Lose :[")
     let gameMode = GameManager(player1: player1, player2: player2)
@@ -70,6 +75,7 @@ public class GameManager {
   }
 
   public class func twoPlayerMode() -> GameManager {
+    logger.info("twoPlayerMode")
     let player1 = Player(markView: XView(), turnMessage: "X's turn", winMessage: "X Wins!")
     let player2 = Player(markView: OView(), turnMessage: "O's Turn", winMessage: "O Wins!")
     let gameMode = GameManager(player1: player1, player2: player2)
@@ -89,6 +95,7 @@ public class GameManager {
 
   // MARK: - Game Play Methods
   public func newGame() {
+    Self.logger.info("newGame")
     gameboard.clear()
     gameplayView.gameboardView.clear()
 
@@ -99,18 +106,22 @@ public class GameManager {
   }
 
   public func addMove(at position: GameboardPosition) {
+    Self.logger.info("addMove")
     currentState.addMove(at: position)
   }
 
   public func handleActionPressed() {
+    Self.logger.info("handleActionPressed")
     currentState.handleActionPressed()
   }
 
   public func handleUndoPressed() {
+    Self.logger.info("handleUndoPressed")
     currentState.handleUndoPressed()
   }
 
   internal func transitionToNextState() {
+    Self.logger.info("transitionToNextState")
     if currentStateIndex + 1 < states.count {
       currentStateIndex += 1
     } else {
